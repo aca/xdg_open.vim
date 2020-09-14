@@ -51,8 +51,19 @@ endfun
 
 " Run the command
 fun! s:run(path) abort
+	if has('nvim') && has('jobs')
+		call jobstart([g:xdg_open_command, a:path],
+			\ {'on_exit': function('s:handle_exit', [a:path])})
+	else
 	" TODO: Make & an option?
-	call system(printf('%s %s &', g:xdg_open_command, shellescape(a:path)))
+		call system(printf('%s %s &', g:xdg_open_command, shellescape(a:path)))
+	endif
+endfun
+
+fun! s:handle_exit(opened_path, id, exit_code, event_type) abort
+	if a:exit_code > 0
+		echoerr 'The command' '`'.g:xdg_open_command.' '.a:opened_path.'`' 'just failed.'
+	endif
 endfun
 
 " Get text to open
