@@ -51,8 +51,7 @@ endfun
 
 " Run the command
 fun! s:run(path) abort
-	" TODO: Make & an option?
-	call system(printf('%s %s &', g:xdg_open_command, shellescape(a:path)))
+	call system(g:xdg_open_command . ' ' . shellescape(a:path) . ' &')
 endfun
 
 " Get text to open
