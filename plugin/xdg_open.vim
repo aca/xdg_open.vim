@@ -51,7 +51,7 @@ endfun
 
 " Run the command
 fun! s:run(path) abort
-	call system(g:xdg_open_command . ' ' . shellescape(a:path) . ' &')
+	call system(g:xdg_open_command . ' ' . shellescape(a:path))
 endfun
 
 " Get text to open
