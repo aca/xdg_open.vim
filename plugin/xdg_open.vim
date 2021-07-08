@@ -51,6 +51,7 @@ endfun
 
 " Run the command
 fun! s:run(path) abort
+  echo g:xdg_open_command . ' ' . shellescape(a:path)
 	call system(g:xdg_open_command . ' ' . shellescape(a:path))
 endfun
 
@@ -59,6 +60,10 @@ fun s:get_text(source) abort
 	" Word under cursor
 	if a:source is 0
 		let l:text = expand(g:xdg_open_match)
+
+    if l:text !~ 'http*'
+      let l:text = expand('<cfile>')
+    endif
 	" Visual selection
 	elseif a:source is 1
 		let l:save = @@
