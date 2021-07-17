@@ -51,8 +51,10 @@ endfun
 
 " Run the command
 fun! s:run(path) abort
-  echo g:xdg_open_command . ' ' . shellescape(a:path)
-	call system(g:xdg_open_command . ' ' . shellescape(a:path))
+	let output = system(g:xdg_open_command . ' ' . shellescape(expand(a:path)))
+        if v:shell_error
+            throw output
+        endif
 endfun
 
 " Get text to open
