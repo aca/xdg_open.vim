@@ -51,7 +51,7 @@ endfun
 
 " Run the command
 fun! s:run(path) abort
-	let output = system(g:xdg_open_command . ' ' . shellescape(expand(a:path)))
+	let output = system(g:xdg_open_command . ' ' . shellescape(expand(a:path)) . ' &')
         if v:shell_error
             throw output
         endif
